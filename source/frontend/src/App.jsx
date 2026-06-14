@@ -1201,6 +1201,73 @@ function SimulationWorkspace({
   );
 }
 
+function exportToMarkdown(session, copy, language) {
+  const { scenario, evaluation, submission, messages, note, review } = session;
+  
+  const chatLog = messages?.map(m => `**${m.sender}**: ${m.content}`).join('\n\n') || "N/A";
+  const missing = evaluation?.missingRequirementsJson?.map(g => `- **${g.title}** (${g.category} - ${g.importance}): ${g.guidance}`).join('\n');
+  
+  const content = `# Req Simulator Portfolio
+## ${scenario.title}
+**Domain**: ${scenario.domain}
+**Stakeholder**: ${scenario.stakeholderRole}
+
+### AI Evaluation
+- **Overall Score**: ${evaluation.overallScore}/100
+- **Completeness**: ${evaluation.completenessScore}/30
+- **Business Rules**: ${evaluation.businessRuleScore}/25
+- **Question Quality**: ${evaluation.questionQualityScore}/20
+- **Requirement Clarity**: ${evaluation.clarityScore}/15
+- **Improvement Awareness**: ${evaluation.improvementAwarenessScore}/10
+
+**Feedback**:
+${evaluation.feedbackText}
+
+**Missing Requirements**:
+${missing || "None"}
+
+${review ? `### Mentor Review
+- **Adjusted Score**: ${review.adjustedScore}/100
+- **Comment**: ${review.comment}
+` : ""}
+
+---
+
+### Learner Submission
+**User Stories**:
+${submission?.userStories || "N/A"}
+
+**Use Cases**:
+${submission?.useCases || "N/A"}
+
+**Acceptance Criteria**:
+${submission?.acceptanceCriteria || "N/A"}
+
+**Reflection**:
+${submission?.reflection || "N/A"}
+
+---
+
+### Interview Notes
+${note?.content || "No notes taken."}
+
+---
+
+### Chat Log
+${chatLog}
+`;
+
+  const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `portfolio-${session.id}.md`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 function Field({ label, name, value, onChange }) {
   return (
     <label>
@@ -1241,6 +1308,10 @@ function FeedbackReport({ copy, language, session, liveReply, discoveryLedger, l
             detail={liveReply ? formatMessageTime(liveReply.createdAt, language) : copy.runtimeAwaiting}
             tone={getProviderTone({ configured: true }, liveReply?.provider || "Mock")}
           />
+          <button className="ghost-button" type="button" onClick={() => exportToMarkdown(session, copy, language)}>
+            <Icon name="download" />
+            <span>{copy.exportPortfolio}</span>
+          </button>
           <button className="ghost-button" type="button" onClick={onRefine}>
             <Icon name="edit" />
             <span>{copy.refineRequirements}</span>
@@ -2180,6 +2251,7 @@ const UI_COPY = {
     reviewQueue: "Review queue",
     mentorReview: "Mentor's Review",
     refineRequirements: "Refine Requirements",
+    exportPortfolio: "Export Portfolio",
     metrics: {
       scenarios: "Scenarios",
       rubric: "Rubric"
@@ -2338,6 +2410,7 @@ const UI_COPY = {
     reviewQueue: "Hàng đợi đánh giá",
     mentorReview: "Nhận xét của Mentor",
     refineRequirements: "Chỉnh sửa yêu cầu",
+    exportPortfolio: "Xuất Portfolio",
     metrics: {
       scenarios: "Tình huống",
       rubric: "Thang điểm"

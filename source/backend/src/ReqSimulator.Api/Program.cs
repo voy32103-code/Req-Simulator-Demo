@@ -2561,7 +2561,7 @@ public sealed class GeminiAiService(
             1. Do not reveal all requirements at once.
             2. If the learner asks a vague question, give general business context only.
             3. If the learner asks about a category, reveal only 1-2 relevant rules from that category.
-            4. If the learner asks a specific follow-up, reveal only one additional related detail.
+            4. If the learner asks a specific follow-up, or explicitly asks for "more information", "details", or "elaborate" (e.g. "biết thêm nhiều hơn"), you MUST provide a detailed explanation of the business rules, constraints, exceptions, and edge cases related to that topic.
             5. If the learner asks for everything, ask them to choose an area first.
             6. Do not reveal unrelated categories.
             7. Do not repeat already revealed requirements as new.
@@ -2657,6 +2657,8 @@ public sealed class GeminiAiService(
             - Exception flows
 
             Write the feedback text and missing requirement messages in {request.ResponseLanguage}.
+            
+            IMPORTANT: The feedback MUST include Skill-Based Guidance. Explicitly suggest the next scenario type or skill focus based on the learner's weakest score area (e.g., "To improve your Business Rules score, try a scenario with more edge cases like...").
 
             Return JSON only. Do not use markdown. Do not explain outside JSON.
 

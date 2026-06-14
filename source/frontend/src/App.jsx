@@ -1481,7 +1481,7 @@ function InstructorDashboard({ copy, dashboard, aiStatus, onSubmitReview }) {
                     {copy.mentorComment}
                     <textarea name="comment" defaultValue={item.review?.comment || ""} />
                   </label>
-                  <button className="primary-button" type="submit">
+                  <button className="primary-button compact-button" type="submit">
                     <Icon name="save" />
                     <span>{copy.saveReview}</span>
                   </button>

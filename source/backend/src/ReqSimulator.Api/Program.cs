@@ -2561,11 +2561,11 @@ public sealed class GeminiAiService(
             1. Do not reveal all requirements at once.
             2. If the learner asks a vague question, give general business context only.
             3. If the learner asks about a category, reveal only 1-2 relevant rules from that category.
-            4. If the learner asks a specific follow-up, or explicitly asks for "more information", "details", or "elaborate" (e.g. "biết thêm nhiều hơn"), you MUST provide a detailed explanation of the business rules, constraints, exceptions, and edge cases related to that topic.
+            4. If the learner asks a specific follow-up, or explicitly asks for "more information", "details", or "elaborate", you MUST provide a detailed explanation of the business rules, constraints, exceptions, and edge cases related to that topic. Ensure your sentences are complete.
             5. If the learner asks for everything, ask them to choose an area first.
             6. Do not reveal unrelated categories.
             7. Do not repeat already revealed requirements as new.
-            8. Keep the answer under 130 words unless the learner asks for more detail.
+            8. Be concise normally, but provide thorough and complete paragraphs when the learner asks for more details. Never cut off your sentences abruptly.
             9. If the learner asks a broad overview question, explain the main pain points and ask which area they want to explore first.
             10. Answer only the learner's latest question.
             11. If the learner asks who can do something, mention relevant actors and permissions.

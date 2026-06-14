@@ -1,0 +1,16 @@
+@startuml
+start
+:Student logs in;
+:Select scenario;
+:Start stakeholder interview;
+repeat
+  :Ask stakeholder question;
+  :AI stakeholder answers based on scenario rules;
+  :Student updates notes;
+repeat while (More questions?) is (yes)
+:Submit requirements;
+:AI evaluates submission;
+:Student views score and missing requirements;
+:Instructor reviews result;
+stop
+@enduml

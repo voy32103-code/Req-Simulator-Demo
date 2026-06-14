@@ -1,0 +1,26 @@
+@startuml
+actor Student
+participant Frontend
+participant Backend
+participant "AI Service" as AI
+database Database
+
+Student -> Frontend: Start scenario
+Frontend -> Backend: POST /sessions
+Backend -> Database: Save session
+Backend --> Frontend: Session with initial stakeholder message
+
+Student -> Frontend: Ask question
+Frontend -> Backend: POST /sessions/{id}/messages
+Backend -> AI: Generate stakeholder response
+AI --> Backend: Response and revealed requirement ids
+Backend -> Database: Save messages
+Backend --> Frontend: Updated conversation
+
+Student -> Frontend: Submit requirements
+Frontend -> Backend: POST /sessions/{id}/submissions
+Backend -> AI: Evaluate against rubric
+AI --> Backend: Scores and feedback
+Backend -> Database: Save evaluation
+Backend --> Frontend: Feedback result
+@enduml

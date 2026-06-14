@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Requirement simulation workspace preview</title>
+  <desc id="desc">A course registration dashboard preview with chat, requirement notes, and score indicators.</desc>
+  <rect width="720" height="420" fill="#f6f7f2"/>
+  <rect x="38" y="34" width="644" height="352" rx="8" fill="#ffffff" stroke="#d7ddd3" stroke-width="2"/>
+  <rect x="38" y="34" width="644" height="58" rx="8" fill="#26332d"/>
+  <circle cx="74" cy="63" r="9" fill="#d49a3f"/>
+  <circle cx="103" cy="63" r="9" fill="#3c8b70"/>
+  <circle cx="132" cy="63" r="9" fill="#4b74ad"/>
+  <rect x="70" y="122" width="180" height="230" rx="8" fill="#f4f6f0" stroke="#d7ddd3"/>
+  <rect x="91" y="145" width="116" height="12" rx="6" fill="#26332d"/>
+  <rect x="91" y="169" width="132" height="36" rx="8" fill="#ffffff" stroke="#d7ddd3"/>
+  <circle cx="111" cy="187" r="8" fill="#3c8b70"/>
+  <rect x="128" y="179" width="70" height="7" rx="4" fill="#65736b"/>
+  <rect x="128" y="191" width="50" height="6" rx="3" fill="#9aa79e"/>
+  <rect x="91" y="218" width="132" height="36" rx="8" fill="#ffffff" stroke="#d7ddd3"/>
+  <circle cx="111" cy="236" r="8" fill="#d49a3f"/>
+  <rect x="128" y="228" width="78" height="7" rx="4" fill="#65736b"/>
+  <rect x="128" y="240" width="58" height="6" rx="3" fill="#9aa79e"/>
+  <rect x="91" y="267" width="132" height="36" rx="8" fill="#ffffff" stroke="#d7ddd3"/>
+  <circle cx="111" cy="285" r="8" fill="#4b74ad"/>
+  <rect x="128" y="277" width="76" height="7" rx="4" fill="#65736b"/>
+  <rect x="128" y="289" width="46" height="6" rx="3" fill="#9aa79e"/>
+  <rect x="282" y="122" width="216" height="230" rx="8" fill="#ffffff" stroke="#d7ddd3"/>
+  <rect x="306" y="146" width="126" height="12" rx="6" fill="#26332d"/>
+  <rect x="306" y="180" width="150" height="44" rx="8" fill="#f7faf8" stroke="#d7ddd3"/>
+  <rect x="326" y="194" width="104" height="8" rx="4" fill="#65736b"/>
+  <rect x="326" y="209" width="76" height="7" rx="4" fill="#9aa79e"/>
+  <rect x="332" y="238" width="142" height="44" rx="8" fill="#edf4fb" stroke="#cbd9ea"/>
+  <rect x="352" y="252" width="86" height="8" rx="4" fill="#4b74ad"/>
+  <rect x="352" y="267" width="98" height="7" rx="4" fill="#8ea6c8"/>
+  <rect x="306" y="296" width="150" height="28" rx="8" fill="#3c8b70"/>
+  <rect x="338" y="306" width="86" height="8" rx="4" fill="#ffffff"/>
+  <rect x="530" y="122" width="118" height="230" rx="8" fill="#fffaf0" stroke="#ead7af"/>
+  <circle cx="589" cy="183" r="42" fill="#ffffff" stroke="#ead7af" stroke-width="10"/>
+  <path d="M589 141a42 42 0 0 1 37 62" fill="none" stroke="#3c8b70" stroke-width="10" stroke-linecap="round"/>
+  <rect x="558" y="250" width="62" height="9" rx="5" fill="#26332d"/>
+  <rect x="548" y="270" width="82" height="8" rx="4" fill="#65736b"/>
+  <rect x="562" y="287" width="54" height="8" rx="4" fill="#9aa79e"/>
+</svg>

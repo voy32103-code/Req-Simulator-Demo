@@ -601,6 +601,7 @@ static object ComposeSession(DemoStore store, string sessionId)
         note = store.Notes.FirstOrDefault(item => item.SessionId == sessionId),
         submission = store.Submissions.FirstOrDefault(item => item.SessionId == sessionId),
         evaluation = store.Evaluations.FirstOrDefault(item => item.SessionId == sessionId),
+        review = store.Reviews.FirstOrDefault(item => item.SessionId == sessionId),
         discoveredCount = session.DiscoveredRequirementIds.Count,
         hiddenRequirementCount = scenario.HiddenRequirements.Count
     };

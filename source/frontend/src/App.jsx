@@ -490,6 +490,10 @@ export default function App() {
                     discoveryLedger={displayDiscoveryLedger}
                     learnerQuestionCount={learnerQuestionCount}
                     onRetry={() => startSession(displaySession.scenario.id)}
+                    onRefine={() => {
+                      setView("session");
+                      setEvaluationPending(false);
+                    }}
                   />
                 )}
 
@@ -502,6 +506,12 @@ export default function App() {
                     discoveryLedger={displayDiscoveryLedger}
                     learnerQuestionCount={learnerQuestionCount}
                     onRetry={() => displaySession?.scenario?.id && startSession(displaySession.scenario.id)}
+                    onRefine={() => {
+                      if (displaySession?.scenario?.id) {
+                        setView("session");
+                        setEvaluationPending(false);
+                      }
+                    }}
                   />
                 )}
 
@@ -1204,7 +1214,7 @@ function Field({ label, name, value, onChange }) {
   );
 }
 
-function FeedbackReport({ copy, language, session, liveReply, discoveryLedger, learnerQuestionCount, onRetry }) {
+function FeedbackReport({ copy, language, session, liveReply, discoveryLedger, learnerQuestionCount, onRetry, onRefine }) {
   const evaluation = session.evaluation;
   const circumference = 565;
   const offset = circumference - (evaluation.overallScore / 100) * circumference;
@@ -1231,6 +1241,10 @@ function FeedbackReport({ copy, language, session, liveReply, discoveryLedger, l
             detail={liveReply ? formatMessageTime(liveReply.createdAt, language) : copy.runtimeAwaiting}
             tone={getProviderTone({ configured: true }, liveReply?.provider || "Mock")}
           />
+          <button className="ghost-button" type="button" onClick={onRefine}>
+            <Icon name="edit" />
+            <span>{copy.refineRequirements}</span>
+          </button>
           <button className="primary-button" type="button" onClick={onRetry}>
             <Icon name="refresh" />
             <span>{copy.retryScenario}</span>
@@ -1310,6 +1324,20 @@ function FeedbackReport({ copy, language, session, liveReply, discoveryLedger, l
             <span>{copy.nextStepHint}</span>
           </div>
         </article>
+
+        {session.review && (
+          <article className="glass-card coach-card mentor-review">
+            <div className="panel-heading">
+              <h2>{copy.mentorReview}</h2>
+              <Icon name="school" />
+            </div>
+            <div className="detail-pair" style={{ marginBottom: "1rem" }}>
+              <span>{copy.adjustedScore}:</span>
+              <strong>{session.review.adjustedScore}/100</strong>
+            </div>
+            <p>{session.review.comment}</p>
+          </article>
+        )}
       </div>
     </section>
   );
@@ -1426,7 +1454,7 @@ function InstructorDashboard({ copy, dashboard, aiStatus, onSubmitReview }) {
   );
 }
 
-function HistoryView({ copy, language, session, liveReply, discoveryLedger, learnerQuestionCount, onRetry }) {
+function HistoryView({ copy, language, session, liveReply, discoveryLedger, learnerQuestionCount, onRetry, onRefine }) {
   if (!session?.evaluation) {
     return <EmptyState title={copy.completeSimulation} detail={copy.historyHint} />;
   }
@@ -1440,6 +1468,7 @@ function HistoryView({ copy, language, session, liveReply, discoveryLedger, lear
       discoveryLedger={discoveryLedger}
       learnerQuestionCount={learnerQuestionCount}
       onRetry={onRetry}
+      onRefine={onRefine}
     />
   );
 }
@@ -2149,6 +2178,8 @@ const UI_COPY = {
     navFeedbackDetail: "Review scores, gaps, and coaching feedback.",
     navInstructorDetail: "Open instructor review and monitoring tools.",
     reviewQueue: "Review queue",
+    mentorReview: "Mentor's Review",
+    refineRequirements: "Refine Requirements",
     metrics: {
       scenarios: "Scenarios",
       rubric: "Rubric"
@@ -2305,6 +2336,8 @@ const UI_COPY = {
     navFeedbackDetail: "Xem điểm, khoảng trống và nhận xét hướng dẫn.",
     navInstructorDetail: "Mở công cụ đánh giá và theo dõi của giảng viên.",
     reviewQueue: "Hàng đợi đánh giá",
+    mentorReview: "Nhận xét của Mentor",
+    refineRequirements: "Chỉnh sửa yêu cầu",
     metrics: {
       scenarios: "Tình huống",
       rubric: "Thang điểm"

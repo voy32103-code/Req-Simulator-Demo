@@ -354,16 +354,22 @@ export default function App() {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
 
-    await api("/instructor/reviews", {
-      method: "POST",
-      body: {
-        sessionId,
-        instructorId: currentUser?.id,
-        adjustedScore: Number(form.get("adjustedScore")),
-        comment: String(form.get("comment") || "")
-      }
-    });
-    await loadDashboard();
+    try {
+      setStatus({ loading: true, error: "" });
+      await api("/instructor/reviews", {
+        method: "POST",
+        body: {
+          sessionId,
+          instructorId: currentUser?.id,
+          adjustedScore: Number(form.get("adjustedScore")),
+          comment: String(form.get("comment") || "")
+        }
+      });
+      await loadDashboard();
+      setStatus({ loading: false, error: "" });
+    } catch (error) {
+      setStatus({ loading: false, error: error.message });
+    }
   }
 
   async function viewSessionDetails(sessionId) {
@@ -446,7 +452,7 @@ export default function App() {
           />
 
           <section className="content-shell">
-            {role === "Instructor" ? (
+            {role === "Instructor" && view === "instructor" ? (
               <InstructorDashboard
                 copy={copy}
                 dashboard={displayDashboard}
@@ -1485,7 +1491,7 @@ function InstructorDashboard({ copy, dashboard, aiStatus, onSubmitReview, onView
                 <span>{item.scenarioTitle}</span>
                 <small>{item.evaluation ? item.evaluation.feedbackText : copy.openStatus}</small>
                 <div style={{ marginTop: "16px" }}>
-                  <button className="ghost-button compact-button" onClick={() => onViewSession(item.id)}>
+                  <button type="button" className="ghost-button compact-button" onClick={() => onViewSession(item.id)}>
                     <Icon name="visibility" />
                     <span>{language === "vi" ? "Xem chi tiết" : "View Details"}</span>
                   </button>

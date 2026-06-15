@@ -366,6 +366,18 @@ export default function App() {
     await loadDashboard();
   }
 
+  async function viewSessionDetails(sessionId) {
+    try {
+      setStatus({ loading: true, error: "" });
+      const data = await api(`/sessions/${sessionId}`);
+      setSession(decorateSessionMessages(data.session, {}));
+      setView("feedback");
+      setStatus({ loading: false, error: "" });
+    } catch (error) {
+      setStatus({ loading: false, error: error.message });
+    }
+  }
+
   function switchRole(nextRole) {
     if (nextRole === "Instructor" && !canInstruct) {
       return;
@@ -440,6 +452,8 @@ export default function App() {
                 dashboard={displayDashboard}
                 aiStatus={aiStatus}
                 onSubmitReview={submitReview}
+                onViewSession={viewSessionDetails}
+                language={language}
               />
             ) : (
               <main className="main-workspace">
@@ -1414,7 +1428,7 @@ function FeedbackReport({ copy, language, session, liveReply, discoveryLedger, l
   );
 }
 
-function InstructorDashboard({ copy, dashboard, aiStatus, onSubmitReview }) {
+function InstructorDashboard({ copy, dashboard, aiStatus, onSubmitReview, onViewSession, language }) {
   const summary = dashboard?.summary || { totalSessions: 0, evaluatedSessions: 0, averageScore: 0, pendingReviews: 0 };
   const sessions = dashboard?.sessions || [];
   const gaps = dashboard?.commonGaps || [];
@@ -1470,6 +1484,12 @@ function InstructorDashboard({ copy, dashboard, aiStatus, onSubmitReview }) {
                 <strong>{item.studentName}</strong>
                 <span>{item.scenarioTitle}</span>
                 <small>{item.evaluation ? item.evaluation.feedbackText : copy.openStatus}</small>
+                <div style={{ marginTop: "16px" }}>
+                  <button className="ghost-button compact-button" onClick={() => onViewSession(item.id)}>
+                    <Icon name="visibility" />
+                    <span>{language === "vi" ? "Xem chi tiết" : "View Details"}</span>
+                  </button>
+                </div>
               </div>
               {item.evaluation && (
                 <form className="review-form" onSubmit={(event) => onSubmitReview(event, item.id)}>
